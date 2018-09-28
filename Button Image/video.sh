@@ -1,1 +1,0 @@
-python3 ~/buttons/video.py
