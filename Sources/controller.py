@@ -1,4 +1,5 @@
 ### BY LSJ with SAMPLE
+### sjun1019@naver.com
 ### 2018.09.28
 ### raspberry pi car project For release
 ### part of car controller

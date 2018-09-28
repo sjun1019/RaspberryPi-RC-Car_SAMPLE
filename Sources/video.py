@@ -1,4 +1,5 @@
 ### BY LSJ with SAMPLE
+### sjun1019@naver.com
 ### 2018.09.27
 ### raspberry pi car project
 ### part of camera viewer
