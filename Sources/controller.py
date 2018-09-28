@@ -1,6 +1,6 @@
 ### BY LSJ with SAMPLE
-### 2018.09.27
-### raspberry pi car project
+### 2018.09.28
+### raspberry pi car project For release
 ### part of car controller
 
 import RPi.GPIO as GPIO
@@ -19,15 +19,15 @@ SERVO_B_PWM = 18
 SPEED = 70
 SPEED_GO = 100
 
-tilt = 15
-pan = 15
+tilt = 8
+pan = 8
 
-tilt_H = 20
-tilt_L = 7.5
-pan_H = 25 # 90
-pan_L = 5 # -90
+tilt_H = 10
+tilt_L = 3.7
+pan_H = 12
+pan_L = 3
 
-val = 2.5
+val = 0.3
 
 delay = 0.5
 delay_servo = 0.2
@@ -46,8 +46,8 @@ GPIO.setup(SERVO_B_PWM, GPIO.OUT)
 
 MOTOR_A = GPIO.PWM(MOTOR_A_PWM, 100)
 MOTOR_B = GPIO.PWM(MOTOR_B_PWM, 100)
-SERVO_A = GPIO.PWM(SERVO_A_PWM, 100)
-SERVO_B = GPIO.PWM(SERVO_B_PWM, 100)
+SERVO_A = GPIO.PWM(SERVO_A_PWM, 50)
+SERVO_B = GPIO.PWM(SERVO_B_PWM, 50)
 
 SERVO_A.start(15) # 0
 SERVO_B.start(15)
@@ -144,6 +144,17 @@ def r():
     print('right', pan)
 
 
+def home():
+    global tilt, pan
+    tilt = 8
+    pan = 8
+    SERVO_A.start(tilt)
+    SERVO_B.start(pan)
+    SERVO_A.ChangeDutyCycle(tilt)
+    SERVO_B.ChangeDutyCycle(pan)
+    sleep(delay_servo)
+
+
 def switch():
     if(len(ttk.Widget.state(F))>3):
         if(ttk.Widget.state(F)[2]=='pressed'):
@@ -201,12 +212,21 @@ def switch():
             SERVO_A.stop()
             SERVO_B.stop()
 
-root.title('Controller')
-root.geometry('740x230+120+500')
+    elif(len(ttk.Widget.state(HOME))>3):
+        if(ttk.Widget.state(HOME)[2]=='pressed'):
+            GPIO.setup(SERVO_A_PWM, GPIO.OUT)
+            GPIO.setup(SERVO_B_PWM, GPIO.OUT)
+            home()
+        else:
+            SERVO_A.stop()
+            SERVO_B.stop()
+
+root.title('샘플전자 - 라즈베리 RC 카')
+root.geometry('800x230+120+300')
 
 F = ttk.Button(root)
 
-Forward = PhotoImage(file = '~/buttons/Forward.gif')
+Forward = PhotoImage(file = '~/RaspberryPi-RC-Car_SAMPLE/Buttons/Forward.gif')
 F.img = Forward.subsample(2,2)
 F.config(image = F.img, compound = CENTER)
 F.grid(row=1, column=0)
@@ -214,7 +234,7 @@ F.grid(row=1, column=0)
 
 B = ttk.Button(root)
 
-Backward = PhotoImage(file = '~/buttons/Backward.gif')
+Backward = PhotoImage(file = '~/RaspberryPi-RC-Car_SAMPLE/Buttons/Backward.gif')
 B.img = Backward.subsample(2,2)
 B.config(image = B.img, compound = CENTER)
 B.grid(row=1, column=1)
@@ -222,7 +242,7 @@ B.grid(row=1, column=1)
 
 L = ttk.Button(root)
 
-Left = PhotoImage(file = '~/buttons/Left.gif')
+Left = PhotoImage(file = '~/RaspberryPi-RC-Car_SAMPLE/Buttons/Left.gif')
 L.img = Left.subsample(2,2)
 L.config(image = L.img, compound = CENTER)
 L.grid(row=1, column=2)
@@ -230,7 +250,7 @@ L.grid(row=1, column=2)
 
 R = ttk.Button(root)
 
-Right = PhotoImage(file = '~/buttons/Right.gif')
+Right = PhotoImage(file = '~/RaspberryPi-RC-Car_SAMPLE/Buttons/Right.gif')
 R.img = Right.subsample(2,2)
 R.config(image = R.img, compound = CENTER)
 R.grid(row=1, column=3)
@@ -239,14 +259,14 @@ R.grid(row=1, column=3)
 
 UP = ttk.Button(root)
 
-Up = PhotoImage(file = '~/buttons/Forward.gif')
+Up = PhotoImage(file = '~/RaspberryPi-RC-Car_SAMPLE/Buttons/Forward.gif')
 UP.img = Up.subsample(10,10)
 UP.config(image = UP.img, compound = CENTER)
 UP.grid(row=0, column=0)
 #UP.pack()
 
 DOWN = ttk.Button(root)
-Down = PhotoImage(file = '~/buttons/Backward.gif')
+Down = PhotoImage(file = '~/RaspberryPi-RC-Car_SAMPLE/Buttons/Backward.gif')
 DOWN.img = Down.subsample(10,10)
 DOWN.config(image = DOWN.img, compound = CENTER)
 DOWN.grid(row=0, column=1)
@@ -254,7 +274,7 @@ DOWN.grid(row=0, column=1)
 
 LEFT = ttk.Button(root)
 
-Left = PhotoImage(file = '~/buttons/Left.gif')
+Left = PhotoImage(file = '~/RaspberryPi-RC-Car_SAMPLE/Buttons/Left.gif')
 LEFT.img = Left.subsample(10,10)
 LEFT.config(image = LEFT.img, compound = CENTER)
 LEFT.grid(row=0, column=2)
@@ -262,11 +282,17 @@ LEFT.grid(row=0, column=2)
 
 RIGHT = ttk.Button(root)
 
-Right = PhotoImage(file = '~/buttons/Right.gif')
+Right = PhotoImage(file = '~/RaspberryPi-RC-Car_SAMPLE/Buttons/Right.gif')
 RIGHT.img = Right.subsample(10,10)
 RIGHT.config(image = RIGHT.img, compound = CENTER)
 RIGHT.grid(row=0, column=3)
 #RIGHT.pack()
+
+HOME = ttk.Button(root)
+Home = PhotoImage(file = '~/RaspberryPi-RC-Car_SAMPLE/Buttons/Home.gif')
+HOME.img = Home.subsample(16,16)
+HOME.config(image = HOME.img, compound = CENTER)
+HOME.grid(row=0, column=4)
 
 #root.mainloop()
 
