@@ -1,7 +1,7 @@
 ### BY LSJ with SAMPLE
-### sjun1019@naver.com
-### 2018.09.28
-### raspberry pi car project For release
+### 2018.10.28 //ui edit, seperate for lcd
+### 2018.11.11 //integrate
+### raspberry pi car project
 ### part of car controller
 
 import RPi.GPIO as GPIO
@@ -223,77 +223,77 @@ def switch():
             SERVO_B.stop()
 
 root.title('샘플전자 - 라즈베리 RC 카')
-root.geometry('800x230+120+300')
+root.geometry('480x150+250+550')
 
 F = ttk.Button(root)
 
-Forward = PhotoImage(file = '~/RaspberryPi-RC-Car_SAMPLE/Buttons/Forward.gif')
-F.img = Forward.subsample(2,2)
+Forward = PhotoImage(file = '~/buttons/Forward.gif')
+F.img = Forward.subsample(4,4)
 F.config(image = F.img, compound = CENTER)
 F.grid(row=1, column=0)
 #F.pack()
 
 B = ttk.Button(root)
 
-Backward = PhotoImage(file = '~/RaspberryPi-RC-Car_SAMPLE/Buttons/Backward.gif')
-B.img = Backward.subsample(2,2)
+Backward = PhotoImage(file = '~/buttons/Backward.gif')
+B.img = Backward.subsample(4,4)
 B.config(image = B.img, compound = CENTER)
 B.grid(row=1, column=1)
 #B.pack()
 
 L = ttk.Button(root)
 
-Left = PhotoImage(file = '~/RaspberryPi-RC-Car_SAMPLE/Buttons/Left.gif')
-L.img = Left.subsample(2,2)
+Left = PhotoImage(file = '~/buttons/Left.gif')
+L.img = Left.subsample(4,4)
 L.config(image = L.img, compound = CENTER)
-L.grid(row=1, column=2)
+L.grid(row=1, column=3)
 #L.pack()
 
 R = ttk.Button(root)
 
-Right = PhotoImage(file = '~/RaspberryPi-RC-Car_SAMPLE/Buttons/Right.gif')
-R.img = Right.subsample(2,2)
+Right = PhotoImage(file = '~/buttons/Right.gif')
+R.img = Right.subsample(4,4)
 R.config(image = R.img, compound = CENTER)
-R.grid(row=1, column=3)
+R.grid(row=1, column=4)
 #R.pack()
 
 
 UP = ttk.Button(root)
 
-Up = PhotoImage(file = '~/RaspberryPi-RC-Car_SAMPLE/Buttons/Forward.gif')
-UP.img = Up.subsample(10,10)
+Up = PhotoImage(file = '~/buttons/Forward.gif')
+UP.img = Up.subsample(14,14)
 UP.config(image = UP.img, compound = CENTER)
 UP.grid(row=0, column=0)
 #UP.pack()
 
 DOWN = ttk.Button(root)
-Down = PhotoImage(file = '~/RaspberryPi-RC-Car_SAMPLE/Buttons/Backward.gif')
-DOWN.img = Down.subsample(10,10)
+Down = PhotoImage(file = '~/buttons/Backward.gif')
+DOWN.img = Down.subsample(14,14)
 DOWN.config(image = DOWN.img, compound = CENTER)
 DOWN.grid(row=0, column=1)
 #DOWN.pack()
 
 LEFT = ttk.Button(root)
 
-Left = PhotoImage(file = '~/RaspberryPi-RC-Car_SAMPLE/Buttons/Left.gif')
-LEFT.img = Left.subsample(10,10)
+Left = PhotoImage(file = '~/buttons/Left.gif')
+LEFT.img = Left.subsample(14,14)
 LEFT.config(image = LEFT.img, compound = CENTER)
-LEFT.grid(row=0, column=2)
+LEFT.grid(row=0, column=3)
 #LEFT.pack()
 
 RIGHT = ttk.Button(root)
 
-Right = PhotoImage(file = '~/RaspberryPi-RC-Car_SAMPLE/Buttons/Right.gif')
-RIGHT.img = Right.subsample(10,10)
+Right = PhotoImage(file = '~/buttons/Right.gif')
+RIGHT.img = Right.subsample(14,14)
 RIGHT.config(image = RIGHT.img, compound = CENTER)
-RIGHT.grid(row=0, column=3)
+RIGHT.grid(row=0, column=4)
 #RIGHT.pack()
 
 HOME = ttk.Button(root)
-Home = PhotoImage(file = '~/RaspberryPi-RC-Car_SAMPLE/Buttons/Home.gif')
-HOME.img = Home.subsample(16,16)
+Home = PhotoImage(file = '~/buttons/Home.gif')
+HOME.img = Home.subsample(30,30)
 HOME.config(image = HOME.img, compound = CENTER)
-HOME.grid(row=0, column=4)
+HOME.grid(row=0, column=2)
 
 #root.mainloop()
 

@@ -1,14 +1,13 @@
 ### BY LSJ with SAMPLE
-### sjun1019@naver.com
-### 2018.09.27
+### 2018.10.28 //ui edit
 ### raspberry pi car project
 ### part of camera viewer
 
 import cv2
 
 cap = cv2.VideoCapture(0)
-cap.set(cv2.CAP_PROP_FRAME_WIDTH, 480)
-cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 200)
+cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1280)
+cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 550)
 cap.set(cv2.CAP_PROP_FPS, 60)
 
 while(cap.isOpened()):
