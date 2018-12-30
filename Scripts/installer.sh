@@ -3,7 +3,11 @@
 
 #!/bin/sh
 
-echo 'raspberrypi' | sudo -S apt update
+echo "All password will change to 'samplepi'"
+
+echo pi:samplepi | /usr/sbin/chpasswd
+
+apt update
 
 cd /home/pi
 
@@ -13,57 +17,86 @@ cd /home/pi/RaspberryPi-RC-Car_SAMPLE/Scripts
 
 chmod +x controller.sh
 
-yes|ln -s controller.sh /home/pi/Desktop/controller.sh
+yes|ln -i controller.sh /home/pi/Desktop/controller.sh
 
 cd /home/pi/RaspberryPi-RC-Car_SAMPLE/Scripts/Resources
 
-echo 'raspberrypi' | sudo -S apt-get install -y ./opencv/OpenCV*.deb
+apt-get install -y ./opencv/OpenCV*.deb
 
-echo 'raspberrypi' | sudo -S apt-get -y install tightvncserver
+apt-get install -y python3-dev
 
-PASSWORD="samplepi"
-DISPLAY=":1"
-VNCSERVER_OPTIONS="-geometry 1280x960 -alwaysshared"
-PASSWD_PATH="$HOME/.vnc/passwd"
-XSTARTUP_PATH="$HOME/.vnc/xstartup"
-VNCSERVER="tightvncserver"
-VNCPASSWD="tightvncpasswd"
-# NOTE: you can change `tightvncpasswd` by `vncpasswd` if you don't use
-#       TightVNC but it won't work in some VNC implementations
-NEW_SESSION="exec gnome-session"
+apt-get -y install tightvncserver
 
-vncserver_stop() {
-    # Kill server for this display if is running
-    $VNCSERVER -clean -kill $DISPLAY
+mkdir /home/pi/.vnc
+
+cp passwd /home/pi/.vnc/passwd
+
+vncserver -p /home/pi/.vnc/passwd
+
+cp tightvnc /etc/init.d/tightvnc ; sudo -S chmod +x /etc/init.d/tightvnc ; sudo -S update-rc.d tightvnc defaults
+
+sed -i "6s/#X-window-manager &/X-window-manager &/" /home/pi/.vnc/xstartup
+
+CONFIG=/boot/config.txt
+
+get_config_var() {
+    lua - "$1" "$2" <<EOF
+local key=assert(arg[1])
+local fn=assert(arg[2])
+local file=assert(io.open(fn))
+local found=false
+for line in file:lines() do
+  local val = line:match("^%s*"..key.."=(.*)$")
+  if (val ~= nil) then
+    print(val)
+    found=true
+    break
+  end
+end
+if not found then
+   print(0)
+end
+EOF
 }
 
-vncserver_start() {
-    echo "$PASSWORD" | $VNCPASSWD -f > $PASSWD_PATH
-    chmod 600 $PASSWD_PATH
-    echo "$NEW_SESSION" > $XSTARTUP_PATH
-    $VNCSERVER $DISPLAY $VNCSERVER_OPTIONS
+set_config_var() {
+    lua - "$1" "$2" "$3" <<EOF > "$3.bak"
+local key=assert(arg[1])
+local value=assert(arg[2])
+local fn=assert(arg[3])
+local file=assert(io.open(fn))
+local made_change=false
+for line in file:lines() do
+  if line:match("^#?%s*"..key.."=.*$") then
+    line=key.."="..value
+    made_change=true
+  end
+  print(line)
+end
+
+if not made_change then
+  print(key.."="..value)
+end
+EOF
+ mv "$3.bak" "$3"
 }
 
-case "$1" in
-    start)
-        vncserver_start
-    ;;
+if [ ! -e /boot/start_x.elf ]; then
+return 1
+fi
+ sed $CONFIG -i -e "s/^startx/#startx/"
+ sed $CONFIG -i -e "s/^fixup_file/#fixup_file/"
 
-    stop)
-        vncserver_stop
-    ;;
+set_config_var start_x 1 $CONFIG
+CUR_GPU_MEM=$(get_config_var gpu_mem $CONFIG)
+if [ -z "$CUR_GPU_MEM" ] || [ "$CUR_GPU_MEM" -lt 128 ]; then
+    set_config_var gpu_mem 128 $CONFIG
+fi
 
-    restart)
-        vncserver_stop
-        vncserver_start
-    ;;
+cat >> /etc/modules << EOF
+bcm2835-v4l2
+EOF
 
-    *)
-        echo "Usage: $0 <start|stop|restart>"
-esac
+echo "Done.. reboot"
 
-sed -i "6s/#X-window-manager &/X-window-manager &/" ~/.vnc/xstartup
-
-echo 'raspberrypi' |  -S chmod +x /etc/init.d/tightvnc ; sudo -S update-rc.d tightvnc defaults
-
-#echo 'raspberrypi' | sudo -S init 6
+init 6

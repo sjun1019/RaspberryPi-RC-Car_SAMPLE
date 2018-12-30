@@ -255,7 +255,7 @@ root.geometry('475x145+420+620')
 
 F = ttk.Button(root)
 
-Forward = PhotoImage(file = '~/buttons/Forward.gif')
+Forward = PhotoImage(file = '/home/pi/RaspberryPi-RC-Car_SAMPLE/Images/Forward.gif')
 F.img = Forward.subsample(4,4)
 F.config(image = F.img, compound = CENTER)
 F.grid(row=1, column=0)
@@ -263,7 +263,7 @@ F.grid(row=1, column=0)
 
 B = ttk.Button(root)
 
-Backward = PhotoImage(file = '~/buttons/Backward.gif')
+Backward = PhotoImage(file = '/home/pi/RaspberryPi-RC-Car_SAMPLE/Images/Backward.gif')
 B.img = Backward.subsample(4,4)
 B.config(image = B.img, compound = CENTER)
 B.grid(row=1, column=1)
@@ -271,7 +271,7 @@ B.grid(row=1, column=1)
 
 L = ttk.Button(root)
 
-Left = PhotoImage(file = '~/buttons/Left.gif')
+Left = PhotoImage(file = '/home/pi/RaspberryPi-RC-Car_SAMPLE/Images/Left.gif')
 L.img = Left.subsample(4,4)
 L.config(image = L.img, compound = CENTER)
 L.grid(row=1, column=3)
@@ -279,7 +279,7 @@ L.grid(row=1, column=3)
 
 R = ttk.Button(root)
 
-Right = PhotoImage(file = '~/buttons/Right.gif')
+Right = PhotoImage(file = '/home/pi/RaspberryPi-RC-Car_SAMPLE/Images/Right.gif')
 R.img = Right.subsample(4,4)
 R.config(image = R.img, compound = CENTER)
 R.grid(row=1, column=4)
@@ -288,14 +288,14 @@ R.grid(row=1, column=4)
 
 UP = ttk.Button(root)
 
-Up = PhotoImage(file = '~/buttons/Forward.gif')
+Up = PhotoImage(file = '/home/pi/RaspberryPi-RC-Car_SAMPLE/Images/Forward.gif')
 UP.img = Up.subsample(14,14)
 UP.config(image = UP.img, compound = CENTER)
 UP.grid(row=0, column=0)
 #UP.pack()
 
 DOWN = ttk.Button(root)
-Down = PhotoImage(file = '~/buttons/Backward.gif')
+Down = PhotoImage(file = '/home/pi/RaspberryPi-RC-Car_SAMPLE/Images/Backward.gif')
 DOWN.img = Down.subsample(14,14)
 DOWN.config(image = DOWN.img, compound = CENTER)
 DOWN.grid(row=0, column=1)
@@ -303,7 +303,7 @@ DOWN.grid(row=0, column=1)
 
 LEFT = ttk.Button(root)
 
-Left = PhotoImage(file = '~/buttons/Left.gif')
+Left = PhotoImage(file = '/home/pi/RaspberryPi-RC-Car_SAMPLE/Images/Left.gif')
 LEFT.img = Left.subsample(14,14)
 LEFT.config(image = LEFT.img, compound = CENTER)
 LEFT.grid(row=0, column=3)
@@ -311,20 +311,20 @@ LEFT.grid(row=0, column=3)
 
 RIGHT = ttk.Button(root)
 
-Right = PhotoImage(file = '~/buttons/Right.gif')
+Right = PhotoImage(file = '/home/pi/RaspberryPi-RC-Car_SAMPLE/Images/Right.gif')
 RIGHT.img = Right.subsample(14,14)
 RIGHT.config(image = RIGHT.img, compound = CENTER)
 RIGHT.grid(row=0, column=4)
 #RIGHT.pack()
 
 HOME = ttk.Button(root)
-Home = PhotoImage(file = '~/buttons/Home.gif')
+Home = PhotoImage(file = '/home/pi/RaspberryPi-RC-Car_SAMPLE/Images/Home.gif')
 HOME.img = Home.subsample(35,35)
 HOME.config(image = HOME.img, compound = CENTER)
 HOME.grid(row=0, column=2)
 
 EXIT = ttk.Button(root)
-Exit = PhotoImage(file = '~/buttons/Exit.gif')
+Exit = PhotoImage(file = '/home/pi/RaspberryPi-RC-Car_SAMPLE/Images/Exit.gif')
 EXIT.img = Exit.subsample(35,35)
 EXIT.config(image = EXIT.img, compound = CENTER)
 EXIT.grid(row=1, column=2)
