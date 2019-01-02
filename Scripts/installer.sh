@@ -1,5 +1,6 @@
 ###20181117
 ###20181230 updated
+###20190102 debug
 
 #!/bin/sh
 
@@ -7,11 +8,11 @@ echo "All password will change to 'samplepi'"
 
 echo pi:samplepi | /usr/sbin/chpasswd
 
-apt update
+apt -y update && apt upgrade
 
 cd /home/pi
 
-git clone https://github.com/sjun1019/RaspberryPi-RC-Car_SAMPLE.git
+git clone -b dev https://github.com/sjun1019/RaspberryPi-RC-Car_SAMPLE.git
 
 cd /home/pi/RaspberryPi-RC-Car_SAMPLE/Scripts
 
@@ -21,9 +22,13 @@ yes|ln -i controller.sh /home/pi/Desktop/controller.sh
 
 cd /home/pi/RaspberryPi-RC-Car_SAMPLE/Scripts/Resources
 
-apt-get install -y ./opencv/OpenCV*.deb
+dpkg -i ./opencv/OpenCV*.deb
+
+apt install -f
 
 apt-get install -y python3-dev
+
+apt-get install -y at-spi2-core
 
 apt-get -y install tightvncserver
 
