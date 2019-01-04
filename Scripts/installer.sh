@@ -24,7 +24,9 @@ cd /home/pi/RaspberryPi-RC-Car_SAMPLE/Scripts/Resources
 
 dpkg -i ./opencv/OpenCV*.deb
 
-apt install -f
+apt-get -f install
+
+ln -sf /usr/python/cv2/python-3.5/cv2.so /usr/lib/python3/dist-packages/
 
 apt-get install -y python3-dev
 
